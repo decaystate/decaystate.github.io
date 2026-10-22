@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DECAYSTATE EPK</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="DECAYSTATE press kit: metalcore from Sioux Falls, SD.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,75..100,400..800;1,75..100,400..800&family=Cinzel:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout concept: one page, read top to bottom in ten seconds.
+   Photo, name, three sentences, three links, one email. Prints as a single Letter page. */
+:root {
+  --void: #0b0909; --line: #2b2221; --bone: #ece5db; --smoke: #9c918a; --signal: #e01b22;
+  --f-display: "Cinzel", "Trajan Pro", Georgia, serif;
+  --f-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--void); }
+body { margin: 0; color: var(--bone); font: 400 16px/1.6 var(--f-body); font-stretch: 92%; -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+p, h1, h2 { margin: 0; }
+.mono { font: 600 10.5px/1.3 var(--f-mono); letter-spacing: .2em; text-transform: uppercase; color: var(--smoke); }
+
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 6; background: var(--void); }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--void); border-bottom: 1px solid var(--line); }
+.bar__in { max-width: 820px; margin-inline: auto; padding: 12px max(16px, env(safe-area-inset-right, 0px)) 12px max(16px, env(safe-area-inset-left, 0px));
+  display: flex; align-items: center; gap: 16px; }
+.bar__in .back { color: var(--smoke); font-weight: 600; white-space: nowrap; }
+@media (max-width: 480px) { .bar__in > .mono { display: none; } }
+.bar__in .back:hover { color: var(--bone); }
+.btn { margin-left: auto; display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; background: var(--signal); color: #fff;
+  font: 700 11px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; border-radius: 2px; }
+.btn:hover { background: #ff2a31; }
+
+.sheet { max-width: 820px; margin: 0 auto; position: relative; }
+.pad { padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+
+.photo { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #000; }
+.photo img.shot { width: 100%; height: 100%; object-fit: cover; object-position: 50% 8%; filter: saturate(.9) contrast(1.06) brightness(1.08); }
+.photo::after { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(5,4,4,.8) 0%, rgba(5,4,4,.25) 32%, rgba(5,4,4,0) 46%, rgba(11,9,9,0) 82%, var(--void) 100%); }
+.name { position: absolute; z-index: 1; left: 0; right: 0; top: 5%; display: grid; justify-items: center; gap: 12px; text-align: center; }
+.name img { width: min(380px, 70%); filter: drop-shadow(0 4px 24px rgba(0,0,0,.7)); }
+.name .mono { padding-left: .2em; color: #cfc6bc; }
+.cap { position: absolute; z-index: 1; right: 14px; bottom: 12px; font: 500 9.5px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: rgba(236,229,219,.55); }
+
+.members { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-top: 34px; }
+.members figure { margin: 0; position: relative; }
+.members img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 30%; }
+.members figure::after { content: ""; position: absolute; inset: 45% 0 0; background: linear-gradient(180deg, transparent, rgba(0,0,0,.82)); }
+.members figcaption { position: absolute; z-index: 1; left: 12px; bottom: 13px; display: flex; gap: 8px; align-items: baseline; text-shadow: 0 1px 10px rgba(0,0,0,.9); }
+.members figcaption b { font: 600 16px/1.2 var(--f-display); letter-spacing: .08em; text-transform: uppercase; }
+.members figcaption span { font: 600 9.5px/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: #d6cdc3; }
+
+.tag { text-align: center; margin-top: 8px; padding-left: .2em; }
+.bio { max-width: 54ch; margin: 16px auto 0; text-align: center; font-size: 17px; line-height: 1.6; color: #d9d0c6; }
+.bio b { color: var(--bone); font-weight: 600; }
+
+.trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 30px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.trio > div { padding: 22px 18px; display: grid; gap: 8px; align-content: start; text-align: center; }
+.trio > div + div { border-left: 1px solid var(--line); }
+.trio .big { font: 500 19px/1.15 var(--f-display); letter-spacing: .06em; text-transform: uppercase; }
+.trio .small { font-size: 14px; color: var(--smoke); }
+.trio a.small { color: var(--bone); }
+.trio a:hover { color: #fff; }
+.trio .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; font-size: 14px; font-weight: 600; }
+.trio .links a { border-bottom: 1px solid var(--signal); }
+.offer { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 14px; color: var(--bone); }
+.offer li::before { content: "\2022\00a0"; color: var(--signal); }
+
+.contact { margin-top: 40px; padding-bottom: 44px; display: grid; justify-items: center; gap: 10px; text-align: center; }
+.contact .mail { font: 600 22px/1.2 var(--f-mono); border-bottom: 2px solid var(--signal); padding-bottom: 3px; overflow-wrap: anywhere; }
+.contact .note { font-size: 13px; color: var(--smoke); }
+
+@media (max-width: 640px) {
+  .photo { aspect-ratio: 4 / 5; }
+  .photo img.shot { object-position: 50% 30%; }
+  .members figcaption b { font-size: 12px; }
+  .members figcaption span { display: none; }
+  .trio { grid-template-columns: 1fr; }
+  .trio > div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .contact .mail { font-size: 17px; }
+}
+
+/* ---- print: one Letter page ---- */
+@page { size: 8.5in 11in; margin: 0; }
+@media print {
+  html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .bar, body::before { display: none; }
+  .sheet { width: 8.5in; height: 11in; max-width: none; margin: 0; overflow: hidden; }
+  .pad { padding-left: .7in; padding-right: .7in; }
+  .photo { aspect-ratio: auto; height: 4.7in; }
+  .name { top: .3in; gap: .08in; }
+  .name img { width: 3.1in; }
+  .members { margin-top: .22in; gap: .05in; }
+  .members img { aspect-ratio: auto; height: 1.45in; }
+  .bio { margin-top: .12in; font-size: 14px; line-height: 1.55; max-width: 6.4in; }
+  .trio { margin-top: .22in; }
+  .trio > div { padding: .16in .14in; }
+  .contact { position: absolute; left: 0; right: 0; bottom: .5in; margin: 0; padding-bottom: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="bar__in">
+  <a class="back" href="./">← DECAYSTATE</a>
+  <span class="mono">Press kit</span>
+  <a class="btn" href="assets/epk/Decaystate_EPK.pdf" download>Download PDF</a>
+</div></div>
+
+<main class="sheet">
+  <div class="photo">
+    <img class="shot" src="assets/img/epk-cover.jpg" alt="Decaystate on stage at Icon in Sioux Falls, seen from the crowd">
+    <div class="name pad">
+      <img src="assets/img/logo-full-bright.png" alt="DECAYSTATE">
+    </div>
+    <p class="cap">Live at Icon · Photo: Corey Gross</p>
+  </div>
+
+  <p class="mono tag pad">Metalcore · Sioux Falls, SD · 43.548° N, 96.729° W</p>
+  <p class="bio pad">Heavy, deliberate metalcore from South Dakota: corroded low end, mechanical breakdowns and hooks that stick. The three-piece debuted in September 2026 with a headline show at Icon and have since shared stages with Opal in Sky and Mirrorcell. For fans of Northlane, Bad Omens and Architects.</p>
+
+  <div class="members pad">
+    <figure><img src="assets/img/epk-gtr.jpg" alt="Paul on guitar"><figcaption><b>Paul</b><span>Guitar</span></figcaption></figure>
+    <figure><img src="assets/img/epk-vox.jpg" alt="Nick singing"><figcaption><b>Nick</b><span>Vocals</span></figcaption></figure>
+    <figure><img src="assets/img/epk-drm.jpg" alt="Alex on drums"><figcaption><b>Alex</b><span>Drums</span></figcaption></figure>
+  </div>
+
+  <div class="trio pad">
+    <div>
+      <p class="mono">Listen</p>
+      <p class="big">Unethical</p>
+      <p class="small">Faouzia cover · Oct 20, 2026</p>
+      <p class="links"><a href="https://open.spotify.com/album/4z0bm4hQK81RxLU7dVUUcc">Spotify</a><a href="https://music.apple.com/us/artist/decaystate/6791834499">Apple Music</a></p>
+    </div>
+    <div>
+      <p class="mono">Watch</p>
+      <p class="big">Hollow · Bones</p>
+      <p class="small">Official music videos</p>
+      <p class="links"><a href="https://www.youtube.com/watch?v=QIzoH4O_Kco">Hollow</a><a href="https://www.youtube.com/watch?v=JucNUIaQVwE">Bones</a></p>
+    </div>
+    <div>
+      <p class="mono">Live</p>
+      <p class="big">Why book us</p>
+      <ul class="offer">
+        <li>Own in-ear monitor rig</li>
+        <li>15-minute changeover</li>
+        <li>Promotion built in</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="contact pad">
+    <p class="mono">Booking &amp; press</p>
+    <a class="mail" href="mailto:decaystateband@gmail.com">decaystateband@gmail.com</a>
+    <p class="note">@decaystateband · <a href="https://linktr.ee/DECAYSTATE">linktr.ee/DECAYSTATE</a> · Stage plot and hi-res photos on request</p>
+  </div>
+</main>
+
+</body>
+</html>

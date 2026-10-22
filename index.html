@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DECAYSTATE | Metalcore from Sioux Falls, SD</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="DECAYSTATE is a metalcore band from Sioux Falls, SD. New single “Unethical” (Faouzia cover) out now. Music, shows, merch and booking.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DECAYSTATE">
+<meta property="og:title" content="DECAYSTATE | Metalcore from Sioux Falls, SD">
+<meta property="og:description" content="New single “Unethical” out now. Shows, merch and booking.">
+<!-- Once the site has its address, make this a full URL, e.g. https://decaystateband.com/assets/img/share.jpg -->
+<meta property="og:image" content="assets/img/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0909">
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&family=Cinzel:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="top">
+  <div class="nav__in">
+    <a class="nav__brand" href="#top" aria-label="DECAYSTATE home">
+      <img src="assets/img/emblem-bright.png" alt="" width="22" height="27">
+      <img class="nav__word" src="assets/img/logo-word-light.png" alt="DECAYSTATE" width="150" height="37">
+    </a>
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#music">Music</a>
+      <a href="#shows">Shows</a>
+      <a href="#merch">Merch</a>
+      <a href="#follow">Follow</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="cartbtn" id="cartOpen" type="button" aria-label="Open cart">
+      <span>Cart</span><b id="cartCount">0</b>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Intro">
+    <div class="hero__bg">
+      <video id="heroVideo" muted loop playsinline preload="metadata" poster="assets/img/hero-poster.jpg"
+        data-src="assets/video/hero.mp4" data-src-mobile="assets/video/hero-mobile.mp4"
+        data-poster-mobile="assets/img/hero-poster-mobile.jpg" data-start="11.5" data-start-mobile="10" aria-label="Live footage of Decaystate at Icon"></video>
+    </div>
+    <div class="hero__veil" aria-hidden="true"></div>
+    <div class="hero__frame" aria-hidden="true"><span class="hero__osd"><i></i>Live · Icon, Sioux Falls</span></div>
+    <div class="hero__in">
+      <p class="coords" data-coords></p>
+      <h1 class="hero__logo"><img src="assets/img/logo-full-bright.png" alt="DECAYSTATE" width="1400" height="748"></h1>
+      <p class="hero__tag"><span data-genre></span> from <span data-hometown></span></p>
+
+      <div class="drop" id="drop">
+        <p class="drop__line"><span class="drop__label" id="dropLabel">New single</span>
+          <b id="dropTitle">Unethical</b> <span class="drop__note" id="dropNote">A Faouzia cover</span></p>
+        <div class="count" id="count" aria-live="polite"></div>
+        <div class="drop__cta" id="dropCta"></div>
+      </div>
+      <a class="hero__next" id="heroNext" href="#shows" hidden></a>
+    </div>
+  </section>
+
+  <!-- MUSIC -->
+  <section class="sec" id="music" aria-labelledby="musicH">
+    <div class="wrap">
+      <div class="sec__head">
+        <h2 id="musicH">Music</h2>
+        <p class="stream" id="streamLinks"></p>
+      </div>
+      <div class="releases" id="releases"></div>
+    </div>
+  </section>
+
+  <!-- SIGNUP -->
+  <section class="signup" id="signup" aria-labelledby="signupH" hidden>
+    <div class="wrap signup__in">
+      <div>
+        <h2 id="signupH">Join The Signal</h2>
+        <p>New music, show dates and presales before anyone else. No spam.</p>
+      </div>
+      <div class="signup__form ghl" id="signupForm"></div>
+    </div>
+  </section>
+
+  <!-- SHOWS -->
+  <section class="sec sec--ash sec--film" id="shows" aria-labelledby="showsH">
+    <div class="film film--trio">
+      <!-- One live still per member. To use a video clip instead, replace these three
+           imgs with: <video id="liveVideo" muted loop playsinline preload="none"
+           poster="assets/img/POSTER.jpg" data-src="assets/video/NEW-CLIP.mp4"></video> -->
+      <img class="film__pane film__pane--gtr" src="assets/img/live-gtr.jpg" alt="Paul on guitar in red and blue stage light" loading="lazy" width="960" height="1200">
+      <img class="film__pane film__pane--vox" src="assets/img/live-vox.jpg" alt="Nick singing, in black and white" loading="lazy" width="960" height="1200">
+      <img class="film__pane film__pane--drm" src="assets/img/live-drm.jpg" alt="Alex behind the kit in warm orange stage light" loading="lazy" width="960" height="1200">
+      <div class="wrap film__cap"><h2 id="showsH">Shows</h2><p>Catch it live.</p></div>
+    </div>
+    <div class="wrap">
+      <div id="upcoming"></div>
+    </div>
+  </section>
+
+  <!-- MERCH -->
+  <section class="sec" id="merch" aria-labelledby="merchH">
+    <div class="wrap">
+      <div class="sec__head">
+        <h2 id="merchH">Merch</h2>
+        <p class="perk">Order here and we’ll ship it, or grab it at the next show. <span id="perk"></span></p>
+      </div>
+      <div class="shop" id="shop"></div>
+      <h3 class="sub">Bundles</h3>
+      <div class="shop shop--bundles" id="bundles"></div>
+    </div>
+  </section>
+
+  <!-- PHOTOS -->
+  <section class="strip" aria-label="Live photos">
+    <div class="strip__track">
+      <img src="assets/img/photo-0284.jpg" alt="Decaystate kick drum head" loading="lazy" width="1400" height="931">
+      <img class="strip__wide" src="assets/img/crowd-wide.jpg" alt="Decaystate on stage at Icon, seen from the crowd" loading="lazy" width="1400" height="933">
+      <a class="strip__more" id="igMore" href="#" target="_blank" rel="noopener"><span class="coords">@decaystateband</span><b>More on Instagram →</b></a>
+    </div>
+  </section>
+
+  <!-- FOLLOW -->
+  <section class="follow" id="follow" aria-labelledby="followH">
+    <div class="wrap follow__in">
+      <h2 id="followH">Follow DECAYSTATE</h2>
+      <p class="follow__bio">Heavy, deliberate metalcore out of Sioux Falls, South Dakota: corroded low end and sharp, mechanical breakdowns, with hooks that stick.</p>
+      <p class="follow__line" id="followLine"></p>
+      <div class="follow__links" id="followLinks"></div>
+      <details class="follow__more">
+        <summary>More about the band</summary>
+        <p>DECAYSTATE played its first show on September 11, 2026 at Icon, then went back out in October for two South Dakota dates with Opal in Sky and Mirrorcell. <i>Hollow</i> and <i>Bones</i> are out now, and a cover of Faouzia’s <i>Unethical</i> came out October 20.</p>
+        <p>“One for your playlists!” <span class="muted">Hypernova Radio, on <i>Hollow</i></span></p>
+      </details>
+    </div>
+  </section>
+
+</main>
+
+<!-- BOOKING -->
+<section class="book" id="contact" aria-labelledby="bookH">
+  <img class="book__bg" src="assets/img/book-bg.jpg" alt="" loading="lazy">
+  <div class="wrap book__in">
+    <h2 class="book__h" id="bookH">Book DECAYSTATE</h2>
+    <p class="book__p">Shows, festivals, press and interviews. We answer every email.</p>
+    <div class="mail">
+      <a class="mail__addr" id="mailLink" href="#"><span data-email></span></a>
+      <button class="linkbtn" type="button" id="copyMail">Copy</button>
+    </div>
+    <div class="book__form ghl" id="bookForm" hidden></div>
+    <div class="book__kit">
+      <a class="btn" href="epk.html" data-track="epk-view">View press kit</a>
+      <a class="tlink" href="assets/epk/Decaystate_EPK.pdf" download data-track="epk-download">Download PDF</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <img src="assets/img/emblem-bright.png" alt="" width="16" height="19">
+    <span>© <span id="year"></span> DECAYSTATE · <span data-hometown></span></span>
+    <span class="coords coords--foot" data-coords></span>
+    <span class="credit">Live photos: Michael Nowka, Corey Gross, Branden Anderson</span>
+    <ul class="social" id="social"></ul>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Cart" aria-hidden="true">
+  <div class="drawer__head">
+    <h2>Your cart</h2>
+    <button class="x" type="button" id="cartClose" aria-label="Close cart">×</button>
+  </div>
+  <div class="drawer__body" id="cartBody"></div>
+  <div class="drawer__foot" id="cartFoot"></div>
+</aside>
+
+<!-- PRODUCT / CHECKOUT / FLYER DIALOG -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+  <div class="modal__card" id="modalCard"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
