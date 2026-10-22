@@ -70,7 +70,7 @@ window.SITE = {
      Each block appears on the site as soon as it's filled in; until then the
      email address stays the way to reach the band.                           */
   ghl: {
-    locationId: "r0Hdjl6PMe03KlVI5LXd",   // for reference; the forms don't need it
+    locationId: "dzahKE9ALTGt1CnTFtFZ",   // DECAYSTATE sub-account, for reference; the forms don't need it
     signupForm: "v334OP0rgFX9SzqfU3Dt",   // "The Signal" email signup, under Music (GHL form: DECAYSTATE - The Signal)
     signupHeight: 270,   // starting height in px (GHL resizes it once it loads)
     bookingForm: "24dSWvhwDUTAjLRvFpMy",  // booking inquiry, in the Book DECAYSTATE section (GHL form: DECAYSTATE - Booking Inquiry)
