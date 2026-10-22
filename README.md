@@ -10,8 +10,8 @@ No build step and no framework, so it runs on GitHub Pages as-is.
 3. In the repo go to **Settings → Pages**. Under "Build and deployment" pick **Deploy from a branch**, branch `main`, folder `/ (root)`, and save.
 4. After a minute the site is live at `https://<your-username>.github.io/decaystate-site/`.
 
-### Custom domain (optional)
-Buy the domain (for example `decaystateband.com`), then in **Settings → Pages → Custom domain** enter it and follow GitHub's DNS instructions. Tick **Enforce HTTPS** once it's available.
+### Custom domain: decaystateband.com
+The `CNAME` file in this folder tells GitHub the site lives at decaystateband.com (leave it in place). In **Settings → Pages → Custom domain** enter `decaystateband.com`, add the DNS records at Porkbun, then tick **Enforce HTTPS** once it's available.
 
 ## Updating the site
 
