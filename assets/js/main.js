@@ -142,7 +142,7 @@
     const here = new URLSearchParams(location.search);
     UTM.forEach((k) => { if (here.get(k) && !u.searchParams.has(k)) u.searchParams.set(k, here.get(k)); });
     const f = document.createElement("iframe");
-    Object.assign(f, { src: u.toString(), id: "inline-" + id, title: name, loading: "lazy" });
+    Object.assign(f, { src: u.toString(), id: "inline-" + id, title: name });
     f.className = "ghl__frame";
     f.style.height = (height || 480) + "px";
     Object.entries({ layout: "{'id':'INLINE'}", "trigger-type": "alwaysShow", "trigger-value": "", "activation-type": "alwaysActivated",
