@@ -71,9 +71,9 @@ window.SITE = {
      email address stays the way to reach the band.                           */
   ghl: {
     locationId: "r0Hdjl6PMe03KlVI5LXd",   // for reference; the forms don't need it
-    signupForm: "GEIRV8VSSzOGBEP5yo8y",   // "The Signal" email signup, under Music (GHL form: DECAYSTATE - The Signal)
+    signupForm: "v334OP0rgFX9SzqfU3Dt",   // "The Signal" email signup, under Music (GHL form: DECAYSTATE - The Signal)
     signupHeight: 270,   // starting height in px (GHL resizes it once it loads)
-    bookingForm: "QsTRQWRKXGOFhYRsA1Va",  // booking inquiry, in the Book DECAYSTATE section (GHL form: DECAYSTATE - Booking Inquiry)
+    bookingForm: "24dSWvhwDUTAjLRvFpMy",  // booking inquiry, in the Book DECAYSTATE section (GHL form: DECAYSTATE - Booking Inquiry)
     bookingHeight: 690
   },
 
