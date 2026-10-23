@@ -508,3 +508,16 @@
   }, { rootMargin: "-45% 0px -50% 0px" });
   Object.keys(map).forEach(function (id) { io.observe(document.getElementById(id)); });
 })();
+
+/* Logo goes straight back to the top. The #top anchor is the sticky nav itself,
+   so the browser treated it as already in view and barely scrolled. */
+(function () {
+  var brand = document.querySelector(".nav__brand");
+  if (!brand) return;
+  brand.addEventListener("click", function (e) {
+    e.preventDefault();
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+    if (history.replaceState) history.replaceState(null, "", location.pathname + location.search);
+  });
+})();
