@@ -83,7 +83,7 @@ window.SITE = {
   // GoHighLevel counts form submissions and its own order pages; GoatCounter
   // counts clicks on everything else (Spotify, YouTube, TicketWeb...). Clear
   // this to turn it off.
-  analytics: { goatcounter: "" },
+  analytics: { goatcounter: "decaystate" },
 
   members: [
     { name: "Nick", role: "Vocals" },
