@@ -466,6 +466,7 @@
     ].filter((x) => x !== "").join("\n");
     const subject = `Merch order ${ref} — ${v.name}`;
     const mailto = `mailto:${S.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+    const gmail = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(S.email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
     const amt = total.toFixed(2);
     const pay = [
       S.payments.venmo && ext(`https://venmo.com/${encodeURIComponent(S.payments.venmo.replace(/^@/, ""))}?txn=pay&amount=${amt}&note=${encodeURIComponent("DECAYSTATE " + ref)}`, "Pay with Venmo", "btn"),
@@ -480,8 +481,9 @@
         <p class="tele">Order ${ref}</p>
         <h2 id="modalTitle">Send your order</h2>
         <div class="steps">
-          <div><div><p>Email this order to <b>${esc(S.email)}</b>. The button opens your email app with everything filled in. If it doesn’t open, copy the order and email it yourself.</p>
-            <div class="btnrow"><a class="btn" href="${esc(mailto)}" data-track="merch-order-sent">Email the order</a><button class="btn btn--ghost" type="button" id="copyOrder">Copy order</button></div></div></div>
+          <div><div><p>Email this order to <b>${esc(S.email)}</b>. Pick how you email, and it opens with everything filled in. If neither works, copy the order and email it yourself.</p>
+            <div class="btnrow"><a class="btn" href="${esc(mailto)}" id="mailOrder" data-track="merch-order-sent">Email app</a><a class="btn btn--ghost" href="${esc(gmail)}" target="_blank" rel="noopener" data-track="merch-order-gmail">Gmail</a><button class="btn btn--ghost" type="button" id="copyOrder">Copy order</button></div>
+            <p class="muted" id="mailHint" style="margin-top:12px" hidden>No email app opened? Use Gmail, or copy the order and send it to ${esc(S.email)}.</p></div></div>
           <div><div><p>${payNote}</p>${v.how === "ship" && S.shipping == null ? "" : pay ? `<div class="btnrow">${pay}</div>` : ""}</div></div>
           <div><div><p>Your order is confirmed once we reply. Questions? Same email.</p></div></div>
         </div>
@@ -489,6 +491,17 @@
         <div class="btnrow"><button class="btn btn--ghost" type="button" id="orderDone">Done, clear my cart</button></div>
       </div>`);
     $("#copyOrder").addEventListener("click", () => copy(text, "Order copied", $("#orderText")));
+    // If the email app link does nothing (no mail app set up), the page never loses focus: show the fallback hint.
+    $("#mailOrder").addEventListener("click", () => {
+      let left = false;
+      const away = () => { left = true; };
+      window.addEventListener("blur", away, { once: true });
+      document.addEventListener("visibilitychange", away, { once: true });
+      setTimeout(() => {
+        window.removeEventListener("blur", away); document.removeEventListener("visibilitychange", away);
+        if (!left) { const h = $("#mailHint"); if (h) h.hidden = false; }
+      }, 1500);
+    });
     $("#orderDone").addEventListener("click", () => { cart = []; save(); renderCart(); closeModal(); toast("Thanks — watch your inbox"); });
   }
 })();
