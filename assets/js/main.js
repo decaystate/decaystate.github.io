@@ -135,7 +135,7 @@
   const ghlForm = (mount, idOrUrl, name, height) => {
     if (!mount || !idOrUrl) return false;
     let u;
-    try { u = new URL(/^https?:\/\//i.test(idOrUrl) ? idOrUrl : "https://api.leadconnectorhq.com/widget/form/" + encodeURIComponent(idOrUrl.trim())); }
+    try { u = new URL(/^https?:\/\//i.test(idOrUrl) ? idOrUrl : "https://forms.decaystateband.com/widget/form/" + encodeURIComponent(idOrUrl.trim())); }
     catch { return false; }
     const id = u.pathname.split("/").filter(Boolean).pop();
     // pass the visitor's UTM tags (from an IG bio link, a flyer QR, etc.) through to GHL
