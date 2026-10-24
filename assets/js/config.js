@@ -103,21 +103,22 @@ window.SITE = {
      across designs (one of each = the pair price).                    */
   merch: [
     { id: "logo-tee", name: "Logo T-Shirt", price: 25, img: "assets/merch/logo-tee.jpg",
-      gallery: ["assets/merch/logo-tee-2.jpg", "assets/merch/logo-tee-3.jpg"],
+      gallery: ["assets/merch/logo-tee-detail-print.jpg", "assets/merch/logo-tee-detail-sleeve.jpg", "assets/merch/logo-tee-2.jpg", "assets/merch/logo-tee-3.jpg"],
       sizes: ["S", "M", "L", "XL", "2XL"] },
     { id: "vintage-red-tee", name: "Acid Wash T-Shirt", price: 30, img: "assets/merch/vintage-red-tee.jpg",
       gallery: ["assets/merch/vintage-red-tee-2.jpg", "assets/merch/vintage-red-tee-detail-1.jpg",
-        "assets/merch/vintage-red-tee-detail-2.jpg", "assets/merch/vintage-red-tee-detail-3.jpg", "assets/merch/vintage-red-tee-3.jpg"],
-      sizes: ["S", "M", "L", "XL", "2XL"] },
+        "assets/merch/vintage-red-tee-detail-2.jpg", "assets/merch/vintage-red-tee-detail-3.jpg", "assets/merch/vintage-red-tee-3.jpg", "assets/merch/vintage-red-tee-tag.jpg"],
+      sizes: ["S", "M", "L", "XL", "2XL"],
+      sizeNote: "Size S is printed on a Comfort Colors tee; M–2XL are a different shirt." },
     { id: "emblem-hat", name: "Emblem Dad Hat", price: 30, img: "assets/merch/emblem-hat.jpg",
-      gallery: ["assets/merch/merch-flatlay.jpg", "assets/merch/emblem-hat-2.jpg"], sizes: [] },
+      gallery: ["assets/merch/emblem-hat-3q.jpg", "assets/merch/emblem-hat-back.jpg", "assets/merch/emblem-hat-detail.jpg", "assets/merch/merch-flatlay.jpg"], sizes: [] },
     { id: "magnet", name: "Magnet", price: 5, pairPrice: 8, img: "assets/merch/magnet.jpg", sizes: [],
       designs: [{ name: "Red emblem", img: "assets/merch/magnet.jpg" }, { name: "Black logo", img: "assets/merch/magnet-black-logo.jpg" }],
-      gallery: ["assets/merch/merch-flatlay.jpg"],
+      gallery: ["assets/merch/magnet-both.jpg", "assets/merch/merch-flatlay-2.jpg"],
       note: "1 for $5 · 2 for $8" },
     { id: "sticker", name: "Sticker", price: 3, pairPrice: 5, img: "assets/merch/sticker.jpg", sizes: [],
       designs: [{ name: "Holographic emblem", img: "assets/merch/sticker.jpg" }, { name: "White logo", img: "assets/merch/sticker-white-logo.jpg" }],
-      gallery: ["assets/merch/merch-flatlay.jpg"],
+      gallery: ["assets/merch/sticker-both.jpg", "assets/merch/merch-flatlay-2.jpg"],
       note: "1 for $3 · 2 for $5" },
 
     { id: "bundle-logo-hat", name: "Logo Shirt + Dad Hat", price: 50, bundle: true,
@@ -129,7 +130,7 @@ window.SITE = {
       includes: ["Logo T-Shirt", "Acid Wash T-Shirt"],
       note: "Includes a high five from each band member" }
   ],
-  merchPhotos: "20261024c",   // bump this after swapping merch photos so browsers load the new ones
+  merchPhotos: "20261024d",   // bump this after swapping merch photos so browsers load the new ones
   merchPerk: "Free sticker with any purchase",
   sizes: ["S", "M", "L", "XL", "2XL"],
 

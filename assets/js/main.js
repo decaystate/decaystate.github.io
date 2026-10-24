@@ -308,10 +308,13 @@
   $("#shop").innerHTML = items.filter((i) => !i.bundle).map(tile).join("");
   $("#bundles").innerHTML = items.filter((i) => i.bundle).map(tile).join("");
 
-  const sizePicker = (name, legend, sizes) => `
+  const sizePicker = (name, legend, sizes, note) => `
     <fieldset class="field"><legend>${esc(legend)}</legend>
       <div class="sizes">${sizes.map((s) => `<label><input type="radio" name="${esc(name)}" value="${esc(s)}"><span>${esc(s)}</span></label>`).join("")}</div>
+      ${note ? `<p class="item__note">${esc(note)}</p>` : ""}
     </fieldset>`;
+  // a shirt's size note also shows wherever a bundle includes that shirt
+  const noteFor = (shirtName) => (S.merch.find((m) => m.name === shirtName) || {}).sizeNote;
 
   const designPicker = (it) => `
     <fieldset class="field"><legend>Design</legend>
@@ -320,8 +323,8 @@
 
   const openProduct = (it) => {
     const pickers = it.bundle
-      ? (it.includes || []).map((n, k) => sizePicker("size" + k, n + " size", S.sizes)).join("")
-      : (it.designs?.length ? designPicker(it) : "") + (it.sizes?.length ? sizePicker("size0", "Size", it.sizes) : "");
+      ? (it.includes || []).map((n, k) => sizePicker("size" + k, n + " size", S.sizes, noteFor(n))).join("")
+      : (it.designs?.length ? designPicker(it) : "") + (it.sizes?.length ? sizePicker("size0", "Size", it.sizes, it.sizeNote) : "");
     const includes = it.bundle ? `<p class="item__note">Includes ${esc((it.includes || []).join(" + "))} + Emblem Dad Hat</p>` : "";
     // Photos: the card photo (or each design's photo) first, then the extra gallery shots. Card/design crops fill the frame; extras show whole.
     const shots = [];
