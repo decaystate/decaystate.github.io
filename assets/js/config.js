@@ -96,25 +96,37 @@ window.SITE = {
      pairPrice: optional deal for 2 (e.g. stickers 1 for $3 / 2 for $5).
      sizes: leave [] for one-size items.
      includes: for bundles, which shirts need a size picked.
-     Swap the images in assets/merch/ for real product photos anytime
-     (same filename, square images look best).                         */
+     img: the card photo (square; bundles 16:10). It's also the first photo in the gallery.
+     gallery: more photos shown when someone opens the item (any shape).
+     designs: for items that come in more than one design; each design can
+     have its own photo, shown when it's picked. The 2-for deal counts
+     across designs (one of each = the pair price).                    */
   merch: [
     { id: "logo-tee", name: "Logo T-Shirt", price: 25, img: "assets/merch/logo-tee.jpg",
+      gallery: ["assets/merch/logo-tee-2.jpg", "assets/merch/logo-tee-3.jpg"],
       sizes: ["S", "M", "L", "XL", "2XL"] },
     { id: "vintage-red-tee", name: "Vintage Red T-Shirt", price: 30, img: "assets/merch/vintage-red-tee.jpg",
+      gallery: ["assets/merch/vintage-red-tee-2.jpg", "assets/merch/vintage-red-tee-detail-1.jpg",
+        "assets/merch/vintage-red-tee-detail-2.jpg", "assets/merch/vintage-red-tee-detail-3.jpg", "assets/merch/vintage-red-tee-3.jpg"],
       sizes: ["S", "M", "L", "XL", "2XL"] },
-    { id: "emblem-hat", name: "Emblem Dad Hat", price: 30, img: "assets/merch/emblem-hat.jpg", sizes: [] },
+    { id: "emblem-hat", name: "Emblem Dad Hat", price: 30, img: "assets/merch/emblem-hat.jpg",
+      gallery: ["assets/merch/merch-flatlay.jpg", "assets/merch/emblem-hat-2.jpg"], sizes: [] },
     { id: "magnet", name: "Magnet", price: 5, pairPrice: 8, img: "assets/merch/magnet.jpg", sizes: [],
+      designs: [{ name: "Red emblem", img: "assets/merch/magnet.jpg" }, { name: "Black logo", img: "assets/merch/magnet-black-logo.jpg" }],
+      gallery: ["assets/merch/merch-flatlay.jpg"],
       note: "1 for $5 · 2 for $8" },
     { id: "sticker", name: "Sticker", price: 3, pairPrice: 5, img: "assets/merch/sticker.jpg", sizes: [],
+      designs: [{ name: "Holographic emblem", img: "assets/merch/sticker.jpg" }, { name: "White logo", img: "assets/merch/sticker-white-logo.jpg" }],
+      gallery: ["assets/merch/merch-flatlay.jpg"],
       note: "1 for $3 · 2 for $5" },
 
     { id: "bundle-logo-hat", name: "Logo Shirt + Dad Hat", price: 50, bundle: true,
-      img: "assets/merch/bundle-logo-hat.jpg", includes: ["Logo T-Shirt"] },
+      img: "assets/merch/bundle-logo-hat.jpg", gallery: ["assets/merch/bundle-all-2.jpg"], includes: ["Logo T-Shirt"] },
     { id: "bundle-red-hat", name: "Vintage Red Shirt + Dad Hat", price: 55, bundle: true,
-      img: "assets/merch/bundle-red-hat.jpg", includes: ["Vintage Red T-Shirt"] },
+      img: "assets/merch/bundle-red-hat.jpg", gallery: ["assets/merch/bundle-all-3.jpg"], includes: ["Vintage Red T-Shirt"] },
     { id: "bundle-all", name: "Both Shirts + Dad Hat", price: 75, bundle: true,
-      img: "assets/merch/bundle-all.jpg", includes: ["Logo T-Shirt", "Vintage Red T-Shirt"],
+      img: "assets/merch/bundle-all.jpg", gallery: ["assets/merch/bundle-all-2.jpg", "assets/merch/bundle-all-3.jpg"],
+      includes: ["Logo T-Shirt", "Vintage Red T-Shirt"],
       note: "Includes a high five from each band member" }
   ],
   merchPerk: "Free sticker with any purchase",

@@ -306,14 +306,29 @@
       <div class="sizes">${sizes.map((s) => `<label><input type="radio" name="${esc(name)}" value="${esc(s)}"><span>${esc(s)}</span></label>`).join("")}</div>
     </fieldset>`;
 
+  const designPicker = (it) => `
+    <fieldset class="field"><legend>Design</legend>
+      <div class="sizes sizes--wide">${it.designs.map((d, k) => `<label><input type="radio" name="design" value="${k}"><span>${esc(d.name)}</span></label>`).join("")}</div>
+    </fieldset>`;
+
   const openProduct = (it) => {
     const pickers = it.bundle
       ? (it.includes || []).map((n, k) => sizePicker("size" + k, n + " size", S.sizes)).join("")
-      : it.sizes?.length ? sizePicker("size0", "Size", it.sizes) : "";
+      : (it.designs?.length ? designPicker(it) : "") + (it.sizes?.length ? sizePicker("size0", "Size", it.sizes) : "");
     const includes = it.bundle ? `<p class="item__note">Includes ${esc((it.includes || []).join(" + "))} + Emblem Dad Hat</p>` : "";
+    // Photos: the card photo (or each design's photo) first, then the extra gallery shots. Card/design crops fill the frame; extras show whole.
+    const shots = [];
+    const addShot = (src, fill) => { if (src && !shots.some((s) => s.src === src)) shots.push({ src, fill }); };
+    if (it.designs?.length) it.designs.forEach((d) => addShot(d.img, true)); else addShot(it.img, true);
+    (it.gallery || []).forEach((src) => addShot(src, false));
+    const thumbs = shots.length > 1 ? `<div class="pd__thumbs" role="group" aria-label="Photos">${shots.map((s, k) =>
+      `<button type="button" class="pd__thumb" data-shot="${k}" aria-label="Photo ${k + 1} of ${shots.length}" aria-pressed="${k === 0}"><img src="${esc(s.src)}" alt="" loading="lazy"></button>`).join("")}</div>` : "";
     openModal(`
       <div class="pd">
-        <div class="pd__img ${it.bundle ? "pd__img--wide" : ""}"><img src="${esc(it.img)}" alt="${esc(it.name)}"></div>
+        <div class="pd__media">
+          <div class="pd__img ${it.bundle ? "pd__img--wide" : ""}"><img id="pdMain" src="${esc(shots[0].src)}" alt="${esc(it.name)}"></div>
+          ${thumbs}
+        </div>
         <form class="pd__body" id="pdForm" novalidate>
           <p class="tele">${it.bundle ? "Bundle" : "Merch"}</p>
           <h2 id="modalTitle">${esc(it.name)}</h2>
@@ -323,21 +338,62 @@
           ${pickers}
           <label class="field" for="pdQty"><span>Quantity</span>
             <select id="pdQty">${[1, 2, 3, 4, 5, 6].map((n) => `<option>${n}</option>`).join("")}</select></label>
-          <p class="pd__err" id="pdErr" hidden>Pick a size first.</p>
+          <p class="pd__err" id="pdErr" hidden>${it.designs?.length ? "Pick a design first." : "Pick a size first."}</p>
           <button class="btn" type="submit">Add to cart</button>
           ${S.merchPerk ? `<p class="item__note">${esc(S.merchPerk)}</p>` : ""}
         </form>
       </div>`);
+
+    // gallery: thumbnails, arrow keys, swipe
+    const main = $("#pdMain");
+    let cur = 0;
+    const show = (k) => {
+      cur = (k + shots.length) % shots.length;
+      main.src = shots[cur].src;
+      main.classList.toggle("is-whole", !shots[cur].fill);
+      document.querySelectorAll(".pd__thumb").forEach((b, i) => b.setAttribute("aria-pressed", String(i === cur)));
+    };
+    document.querySelectorAll(".pd__thumb").forEach((b) => b.addEventListener("click", () => show(+b.dataset.shot)));
+    if (shots.length > 1) {
+      const media = $(".pd__img");
+      media.tabIndex = 0;
+      media.setAttribute("aria-label", "Product photos. Use the left and right arrow keys to browse.");
+      media.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") { e.preventDefault(); show(cur + 1); }
+        if (e.key === "ArrowLeft") { e.preventDefault(); show(cur - 1); }
+      });
+      let x0 = null;
+      media.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+      media.addEventListener("touchend", (e) => {
+        if (x0 == null) return;
+        const dx = e.changedTouches[0].clientX - x0; x0 = null;
+        if (Math.abs(dx) > 40) show(cur + (dx < 0 ? 1 : -1));
+      });
+    }
+    // picking a design shows that design's photo
+    document.querySelectorAll('input[name="design"]').forEach((r) => r.addEventListener("change", () => {
+      const k = shots.findIndex((s) => s.src === it.designs[+r.value].img);
+      if (k >= 0) show(k);
+      $("#pdErr").hidden = true;
+    }));
+
     $("#pdForm").addEventListener("submit", (e) => {
       e.preventDefault();
       const opts = [];
+      let lineImg;
+      if (it.designs?.length) {
+        const d = $('input[name="design"]:checked', card)?.value;
+        if (d == null) { $("#pdErr").textContent = "Pick a design first."; $("#pdErr").hidden = false; return; }
+        opts.push("Design: " + it.designs[+d].name);
+        lineImg = it.designs[+d].img;
+      }
       const nPick = it.bundle ? (it.includes || []).length : (it.sizes?.length ? 1 : 0);
       for (let k = 0; k < nPick; k++) {
         const v = $(`input[name="size${k}"]:checked`, card)?.value;
-        if (!v) { $("#pdErr").hidden = false; return; }
+        if (!v) { $("#pdErr").textContent = "Pick a size first."; $("#pdErr").hidden = false; return; }
         opts.push(it.bundle ? `${it.includes[k]}: ${v}` : `Size ${v}`);
       }
-      addToCart(it.id, opts, +$("#pdQty").value);
+      addToCart(it.id, opts, +$("#pdQty").value, lineImg);
       closeModal(); openCart();
     });
   };
@@ -348,17 +404,20 @@
   let cart = [];
   try { cart = JSON.parse(localStorage.getItem(KEY) || "[]").filter((l) => byId[l.id]); } catch { cart = []; }
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(cart)); } catch {} };
-  const lineTotal = (l) => {
-    const it = byId[l.id];
-    return it.pairPrice ? Math.floor(l.qty / 2) * it.pairPrice + (l.qty % 2) * it.price : l.qty * it.price;
+  const lineTotal = (l) => l.qty * byId[l.id].price;
+  // 2-for deals count across designs (one red magnet + one black magnet = the pair price)
+  const pairSavings = () => {
+    const n = {};
+    cart.forEach((l) => { if (byId[l.id].pairPrice) n[l.id] = (n[l.id] || 0) + l.qty; });
+    return Object.entries(n).reduce((a, [id, q]) => a + Math.floor(q / 2) * (2 * byId[id].price - byId[id].pairPrice), 0);
   };
-  const subtotal = () => cart.reduce((a, l) => a + lineTotal(l), 0);
+  const subtotal = () => cart.reduce((a, l) => a + lineTotal(l), 0) - pairSavings();
   const count = () => cart.reduce((a, l) => a + l.qty, 0);
 
-  function addToCart(id, opts, qty) {
+  function addToCart(id, opts, qty, img) {
     const key = id + "|" + opts.join("|");
     const ex = cart.find((l) => l.key === key);
-    if (ex) ex.qty += qty; else cart.push({ key, id, opts, qty });
+    if (ex) ex.qty += qty; else cart.push(img ? { key, id, opts, qty, img } : { key, id, opts, qty });
     save(); renderCart(); toast("Added to cart");
   }
 
@@ -380,7 +439,7 @@
     body.innerHTML = cart.map((l, i) => {
       const it = byId[l.id];
       return `<div class="line">
-        <img src="${esc(it.img)}" alt="">
+        <img src="${esc(l.img || it.img)}" alt="">
         <div><div class="line__name">${esc(it.name)}</div>
           ${l.opts.length ? `<div class="line__opt">${l.opts.map(esc).join("<br>")}</div>` : ""}
           <div class="qty"><button type="button" data-dq="${i}" data-d="-1" aria-label="One fewer">−</button><span>${l.qty}</span><button type="button" data-dq="${i}" data-d="1" aria-label="One more">+</button></div>
@@ -390,6 +449,7 @@
     }).join("");
     foot.innerHTML = `
       <div class="sum">
+        ${pairSavings() ? `<div><span>2-for deal</span><span>−${money(pairSavings())}</span></div>` : ""}
         <div><span>Subtotal</span><span>${money(subtotal())}</span></div>
         <div><span>Shipping</span><span>${S.shipping == null ? "Confirmed by email" : money(S.shipping)}</span></div>
         <div class="tot"><span>Total</span><span>${money(subtotal() + (S.shipping || 0))}${S.shipping == null ? " +ship" : ""}</span></div>
@@ -456,6 +516,7 @@
     const text = [
       `DECAYSTATE merch order ${ref}`, "",
       ...lines, "",
+      pairSavings() ? `2-for deal: −${money(pairSavings())}` : "",
       `Subtotal: ${money(subtotal())}`,
       v.how === "ship" ? `Shipping: ${S.shipping == null ? "please confirm" : money(S.shipping)}` : "Pick up at a show",
       `Total: ${money(total)}${v.how === "ship" && S.shipping == null ? " + shipping" : ""}`, "",
