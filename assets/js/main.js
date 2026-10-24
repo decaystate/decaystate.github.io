@@ -285,6 +285,13 @@
   });
 
   /* ---------- merch ---------- */
+  // version tag on merch photos so browsers fetch new photos when they're swapped (bump merchPhotos in config)
+  const pv = (src) => (src && S.merchPhotos ? src + (src.includes("?") ? "&" : "?") + "v=" + S.merchPhotos : src);
+  S.merch.forEach((it) => {
+    it.img = pv(it.img);
+    if (it.gallery) it.gallery = it.gallery.map(pv);
+    (it.designs || []).forEach((d) => { d.img = pv(d.img); });
+  });
   const items = S.merch;
   const byId = Object.fromEntries(items.map((i) => [i.id, i]));
   $("#perk").textContent = S.merchPerk ? S.merchPerk + "." : "";
