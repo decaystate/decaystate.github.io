@@ -251,7 +251,7 @@
 
   /* ---------- band ---------- */
   /* one short line + big follow buttons (band bio lives in the press kit for now) */
-  const names = S.members.map((m) => m.name);
+  const names = S.members.map((m) => (m.role ? `${m.name} (${m.role.toLowerCase()})` : m.name));
   const nameLine = names.length > 1 ? names.slice(0, -1).join(", ") + " and " + names[names.length - 1] : names.join("");
   $("#followLine").textContent = [nameLine, S.ffo?.length ? "For fans of " + S.ffo.join(", ") : ""]
     .filter(Boolean).join(" · ");
