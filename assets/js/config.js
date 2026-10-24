@@ -105,7 +105,7 @@ window.SITE = {
     { id: "logo-tee", name: "Logo T-Shirt", price: 25, img: "assets/merch/logo-tee.jpg",
       gallery: ["assets/merch/logo-tee-2.jpg", "assets/merch/logo-tee-3.jpg"],
       sizes: ["S", "M", "L", "XL", "2XL"] },
-    { id: "vintage-red-tee", name: "Vintage Red T-Shirt", price: 30, img: "assets/merch/vintage-red-tee.jpg",
+    { id: "vintage-red-tee", name: "Acid Wash T-Shirt", price: 30, img: "assets/merch/vintage-red-tee.jpg",
       gallery: ["assets/merch/vintage-red-tee-2.jpg", "assets/merch/vintage-red-tee-detail-1.jpg",
         "assets/merch/vintage-red-tee-detail-2.jpg", "assets/merch/vintage-red-tee-detail-3.jpg", "assets/merch/vintage-red-tee-3.jpg"],
       sizes: ["S", "M", "L", "XL", "2XL"] },
@@ -122,11 +122,11 @@ window.SITE = {
 
     { id: "bundle-logo-hat", name: "Logo Shirt + Dad Hat", price: 50, bundle: true,
       img: "assets/merch/bundle-logo-hat.jpg", gallery: ["assets/merch/bundle-all-2.jpg"], includes: ["Logo T-Shirt"] },
-    { id: "bundle-red-hat", name: "Vintage Red Shirt + Dad Hat", price: 55, bundle: true,
-      img: "assets/merch/bundle-red-hat.jpg", gallery: ["assets/merch/bundle-all-3.jpg"], includes: ["Vintage Red T-Shirt"] },
+    { id: "bundle-red-hat", name: "Acid Wash Shirt + Dad Hat", price: 55, bundle: true,
+      img: "assets/merch/bundle-red-hat.jpg", gallery: ["assets/merch/bundle-all-3.jpg"], includes: ["Acid Wash T-Shirt"] },
     { id: "bundle-all", name: "Both Shirts + Dad Hat", price: 75, bundle: true,
       img: "assets/merch/bundle-all.jpg", gallery: ["assets/merch/bundle-all-2.jpg", "assets/merch/bundle-all-3.jpg"],
-      includes: ["Logo T-Shirt", "Vintage Red T-Shirt"],
+      includes: ["Logo T-Shirt", "Acid Wash T-Shirt"],
       note: "Includes a high five from each band member" }
   ],
   merchPerk: "Free sticker with any purchase",
