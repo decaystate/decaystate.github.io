@@ -129,7 +129,7 @@ window.SITE = {
       includes: ["Logo T-Shirt", "Acid Wash T-Shirt"],
       note: "Includes a high five from each band member" }
   ],
-  merchPhotos: "20261024",   // bump this after swapping merch photos so browsers load the new ones
+  merchPhotos: "20261024b",   // bump this after swapping merch photos so browsers load the new ones
   merchPerk: "Free sticker with any purchase",
   sizes: ["S", "M", "L", "XL", "2XL"],
 
