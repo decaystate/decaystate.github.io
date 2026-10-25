@@ -315,6 +315,8 @@
     </fieldset>`;
   // a shirt's size note also shows wherever a bundle includes that shirt
   const noteFor = (shirtName) => (S.merch.find((m) => m.name === shirtName) || {}).sizeNote;
+  // a bundle offers each shirt in that shirt's own sizes
+  const sizesFor = (shirtName) => (S.merch.find((m) => m.name === shirtName) || {}).sizes || S.sizes;
 
   const designPicker = (it) => `
     <fieldset class="field"><legend>Design</legend>
@@ -323,7 +325,7 @@
 
   const openProduct = (it) => {
     const pickers = it.bundle
-      ? (it.includes || []).map((n, k) => sizePicker("size" + k, n + " size", S.sizes, noteFor(n))).join("")
+      ? (it.includes || []).map((n, k) => sizePicker("size" + k, n + " size", sizesFor(n), noteFor(n))).join("")
       : (it.designs?.length ? designPicker(it) : "") + (it.sizes?.length ? sizePicker("size0", "Size", it.sizes, it.sizeNote) : "");
     const includes = it.bundle ? `<p class="item__note">Includes ${esc((it.includes || []).join(" + "))} + Emblem Dad Hat</p>` : "";
     // Photos: the card photo (or each design's photo) first, then the extra gallery shots. Card/design crops fill the frame; extras show whole.
