@@ -104,7 +104,7 @@ window.SITE = {
   merch: [
     { id: "logo-tee", name: "Logo T-Shirt", price: 25, img: "assets/merch/logo-tee.jpg",
       gallery: ["assets/merch/logo-tee-detail-print.jpg", "assets/merch/logo-tee-detail-sleeve.jpg", "assets/merch/logo-tee-2.jpg", "assets/merch/logo-tee-3.jpg"],
-      sizes: ["S", "M", "L", "XL", "2XL"] },
+      sizes: ["S", "M", "L", "XL", "2XL", "3XL"] },
     { id: "vintage-red-tee", name: "Acid Wash T-Shirt", price: 30, img: "assets/merch/vintage-red-tee.jpg",
       gallery: ["assets/merch/vintage-red-tee-2.jpg", "assets/merch/vintage-red-tee-detail-1.jpg",
         "assets/merch/vintage-red-tee-detail-2.jpg", "assets/merch/vintage-red-tee-detail-3.jpg", "assets/merch/vintage-red-tee-3.jpg", "assets/merch/vintage-red-tee-tag.jpg"],
