@@ -272,7 +272,7 @@
   $("#upcoming").innerHTML = upcoming.length
     ? upcoming.map((s) => `
       <article class="show${upcoming.length === 1 ? " show--solo" : ""}">
-        ${s.flyer ? `<button class="show__flyer" type="button" data-flyer="${esc(s.flyer)}" aria-label="View the full flyer"><img src="${esc(s.flyer)}" alt="Flyer for ${esc(s.title || "the show")} at ${esc(s.venue)}" loading="lazy"></button>` : ""}
+        ${s.flyer ? `<button class="show__flyer" type="button" data-flyer="${esc(s.flyer)}" aria-label="View the full flyer"><img src="${esc(s.flyer)}" alt="Flyer for ${esc(s.title || "the show")} at ${esc(s.venue)}" loading="lazy" width="900" height="1125"></button>` : ""}
         <div class="show__body">
           <p class="show__date">${fmt(s.date, { weekday: "short", month: "short", day: "numeric" })} <span class="show__count">${daysOut(s)}</span></p>
           <h3 class="show__t">${esc(s.title || s.venue)}</h3>
