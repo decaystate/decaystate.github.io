@@ -9,7 +9,7 @@ window.SITE = {
   email: "decaystateband@gmail.com",
   hometown: "Sioux Falls, SD",
   coords: "43.548° N, 96.729° W",
-  genre: "Metalcore",
+  genre: "Alternative metalcore",
   ffo: ["Northlane", "Bad Omens", "Architects"],
 
   links: {
