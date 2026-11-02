@@ -650,15 +650,28 @@
 })();
 
 /* Links that point at a section (#merch, #signup from the Linktree, a flyer QR...):
-   photos and the signup form load after the browser's first jump, which pushes the
-   section down the page. Jump again once everything has loaded. */
+   photos and the GoHighLevel forms size themselves after the browser's first jump,
+   which pushes the section down the page. Keep the section in place while the page
+   settles (up to 6 seconds), and let go as soon as the visitor scrolls or taps. */
 (function () {
   var id = decodeURIComponent(location.hash.slice(1));
-  if (!id || id === "top") return;
+  if (!id || id === "top" || !window.ResizeObserver) return;
+  var el = document.getElementById(id);
+  if (!el) return;
+  var done = false, ro;
   var go = function () {
-    var el = document.getElementById(id);
-    if (el && !el.hidden) el.scrollIntoView({ block: "start", behavior: "instant" });
+    if (done || el.hidden) return;
+    el.scrollIntoView({ block: "start", behavior: "instant" });
   };
-  var settle = function () { go(); setTimeout(go, 600); };
-  if (document.readyState === "complete") settle(); else window.addEventListener("load", settle, { once: true });
+  var stop = function () {
+    if (done) return;
+    done = true;
+    if (ro) ro.disconnect();
+    ["wheel", "touchstart", "keydown", "mousedown"].forEach(function (t) { window.removeEventListener(t, stop, true); });
+  };
+  ["wheel", "touchstart", "keydown", "mousedown"].forEach(function (t) { window.addEventListener(t, stop, true); });
+  ro = new ResizeObserver(go);
+  ro.observe(document.body);
+  var start = function () { go(); setTimeout(stop, 6000); };
+  if (document.readyState === "complete") start(); else window.addEventListener("load", start, { once: true });
 })();
