@@ -648,3 +648,17 @@
     if (history.replaceState) history.replaceState(null, "", location.pathname + location.search);
   });
 })();
+
+/* Links that point at a section (#merch, #signup from the Linktree, a flyer QR...):
+   photos and the signup form load after the browser's first jump, which pushes the
+   section down the page. Jump again once everything has loaded. */
+(function () {
+  var id = decodeURIComponent(location.hash.slice(1));
+  if (!id || id === "top") return;
+  var go = function () {
+    var el = document.getElementById(id);
+    if (el && !el.hidden) el.scrollIntoView({ block: "start", behavior: "instant" });
+  };
+  var settle = function () { go(); setTimeout(go, 600); };
+  if (document.readyState === "complete") settle(); else window.addEventListener("load", settle, { once: true });
+})();
