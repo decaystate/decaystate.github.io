@@ -198,6 +198,47 @@
   const today = todayYMD();
   const upcoming = S.shows.filter((s) => s.date >= today).sort((a, b) => a.date.localeCompare(b.date));
 
+  // Upcoming shows as event data search engines read (Google can list them in concert results).
+  (function showsForSearch() {
+    const SITE = "https://decaystateband.com/";
+    const to24 = (t) => {
+      const m = /(\d{1,2})(?::(\d{2}))?\s*(am|pm)/i.exec(t || "");
+      if (!m) return "";
+      let h = +m[1] % 12; if (/pm/i.test(m[3])) h += 12;
+      return `T${String(h).padStart(2, "0")}:${m[2] || "00"}:00`;
+    };
+    // Central time: -06:00 in winter, -05:00 roughly mid-March to early November
+    const offset = (ymd) => { const md = ymd.slice(5); return md >= "03-10" && md < "11-03" ? "-05:00" : "-06:00"; };
+    const place = (s) => {
+      const [city, region] = (s.city || "").split(",").map((x) => x.trim());
+      const street = (s.address || "").split(",")[0].trim();
+      return { "@type": "Place", name: s.venue,
+        address: { "@type": "PostalAddress", ...(street ? { streetAddress: street } : {}), addressLocality: city, addressRegion: region, addressCountry: "US" } };
+    };
+    const events = upcoming.filter((s) => s.venue).map((s) => {
+      const t = to24(s.time);
+      const price = /\$(\d+(?:\.\d+)?)/.exec(s.price || "");
+      const lineup = s.lineup && s.lineup.length ? s.lineup : ["Decaystate"];
+      return {
+        "@context": "https://schema.org", "@type": "MusicEvent",
+        name: s.title ? `${s.title}: ${lineup.join(", ")}` : `${lineup.join(", ")} at ${s.venue}`,
+        startDate: s.date + (t ? t + offset(s.date) : ""),
+        eventStatus: "https://schema.org/EventScheduled",
+        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+        location: place(s),
+        performer: lineup.map((n) => (/^decaystate$/i.test(n) ? { "@type": "MusicGroup", "@id": SITE + "#band", name: "DECAYSTATE", url: SITE } :{ "@type": "MusicGroup", name: n })),
+        ...(s.flyer ? { image: SITE + s.flyer } : {}),
+        ...(s.tickets ? { offers: { "@type": "Offer", url: s.tickets, priceCurrency: "USD", availability: "https://schema.org/InStock", ...(price ? { price: price[1] } : {}) } } : {}),
+        url: SITE + "#shows"
+      };
+    });
+    if (!events.length) return;
+    const tag = document.createElement("script");
+    tag.type = "application/ld+json";
+    tag.textContent = JSON.stringify(events.length === 1 ? events[0] : events);
+    document.head.appendChild(tag);
+  })();
+
   const gcal = (s) => {
     const d = s.date.replace(/-/g, "");
     const p = new URLSearchParams({
