@@ -72,7 +72,7 @@ window.SITE = {
   ghl: {
     locationId: "dzahKE9ALTGt1CnTFtFZ",   // DECAYSTATE sub-account, for reference; the forms don't need it
     signupForm: "v334OP0rgFX9SzqfU3Dt",   // "The Signal" email signup, under Music (GHL form: DECAYSTATE - The Signal)
-    signupHeight: 270,   // starting height in px (GHL resizes it once it loads)
+    signupHeight: 400,   // starting height in px (GHL resizes it once it loads; 3 fields ≈ 400)
     bookingForm: "24dSWvhwDUTAjLRvFpMy",  // booking inquiry, in the Book DECAYSTATE section (GHL form: DECAYSTATE - Booking Inquiry)
     bookingHeight: 690
   },
