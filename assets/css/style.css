@@ -460,8 +460,8 @@ input:focus, textarea:focus, select:focus { outline: none; border-color: var(--s
    that scrolls with the page and loops seamlessly (vines-desktop.jpg /
    vines-phone.jpg, inspired by the Sept 11 flyer). No section panels:
    everything below the hero sits on the same surface, and the live photos
-   blend into it (their dark areas let the vines through, their edges fade
-   out) instead of sitting on top as solid blocks.
+   stand solid over it, fading only at their top and bottom edges so they
+   don't sit on the page as hard-edged blocks.
    ===================================================================== */
 :root { --veil: rgba(11, 9, 9, .2); }
 /* the vines scroll with the page: one tall image that loops seamlessly down the whole site */
@@ -479,9 +479,8 @@ html { background: linear-gradient(var(--veil), var(--veil)), url(../img/vines-d
 .hero__veil { background:
     linear-gradient(180deg, rgba(11,9,9,.3) 0%, rgba(11,9,9,.15) 40%, rgba(11,9,9,.7) 86%, rgba(11,9,9,0) 100%),
     radial-gradient(ellipse 70% 55% at 50% 45%, rgba(156,0,0,.32), rgba(156,0,0,0) 70%); }
-/* live photos (Shows band + Instagram strip): vines show through the dark areas, edges fade */
+/* live photos (Shows band + Instagram strip): solid over the vines, only their top and bottom edges fade */
 .film, .strip { background: transparent; }
-.film video, .film__pane, .strip__track img { mix-blend-mode: lighten; }
 .film video, .film__pane {
   -webkit-mask-image: linear-gradient(180deg, transparent 0, rgba(0,0,0,.5) 18%, #000 38%, #000 60%, transparent 100%);
           mask-image: linear-gradient(180deg, transparent 0, rgba(0,0,0,.5) 18%, #000 38%, #000 60%, transparent 100%); }
