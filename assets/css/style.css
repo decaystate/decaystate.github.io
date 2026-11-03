@@ -463,12 +463,12 @@ input:focus, textarea:focus, select:focus { outline: none; border-color: var(--s
    stand solid over it, fading only at their top and bottom edges so they
    don't sit on the page as hard-edged blocks.
    ===================================================================== */
-:root { --veil: rgba(11, 9, 9, .2); }
+:root { --veil: rgba(11, 9, 9, .4); }   /* how far the vines sit back: higher = dimmer */
 /* the vines scroll with the page: one tall image that loops seamlessly down the whole site */
 body { background: transparent; }
-html { background: linear-gradient(var(--veil), var(--veil)), url(../img/vines-desktop.jpg) top center / 100% auto repeat-y, var(--void); }
+html { background: linear-gradient(var(--veil), var(--veil)), url(../img/vines-desktop.jpg?v=2) top center / 100% auto repeat-y, var(--void); }
 @media (max-aspect-ratio: 4/5) {
-  html { background: linear-gradient(var(--veil), var(--veil)), url(../img/vines-phone.jpg) top center / 100% auto repeat-y, var(--void); }
+  html { background: linear-gradient(var(--veil), var(--veil)), url(../img/vines-phone.jpg?v=2) top center / 100% auto repeat-y, var(--void); }
 }
 /* no section panels or dividers */
 .sec--ash, .signup, .strip__more { background: transparent; }
