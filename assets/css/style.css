@@ -453,3 +453,45 @@ input:focus, textarea:focus, select:focus { outline: none; border-color: var(--s
   @keyframes rec { to { visibility: hidden; } }
 }
 @media (max-width: 760px) and (prefers-reduced-motion: reduce) { .hero__osd i { animation: none; } }
+
+/* =====================================================================
+   Decaying-vine atmosphere
+   Bare vines and dead red leaves on the site's own black, in one tall image
+   that scrolls with the page and loops seamlessly (vines-desktop.jpg /
+   vines-phone.jpg, inspired by the Sept 11 flyer). No section panels:
+   everything below the hero sits on the same surface, and the live photos
+   blend into it (their dark areas let the vines through, their edges fade
+   out) instead of sitting on top as solid blocks.
+   ===================================================================== */
+:root { --veil: rgba(11, 9, 9, .2); }
+/* the vines scroll with the page: one tall image that loops seamlessly down the whole site */
+body { background: transparent; }
+html { background: linear-gradient(var(--veil), var(--veil)), url(../img/vines-desktop.jpg) top center / 100% auto repeat-y, var(--void); }
+@media (max-aspect-ratio: 4/5) {
+  html { background: linear-gradient(var(--veil), var(--veil)), url(../img/vines-phone.jpg) top center / 100% auto repeat-y, var(--void); }
+}
+/* no section panels or dividers */
+.sec--ash, .signup, .strip__more { background: transparent; }
+.signup { border-bottom: 0; }
+.strip__more:hover { background: rgba(29, 23, 23, .45); }
+/* hero: video untouched, only its bottom edge melts into the vines */
+.hero__bg { -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); background: transparent; }
+.hero__veil { background:
+    linear-gradient(180deg, rgba(11,9,9,.3) 0%, rgba(11,9,9,.15) 40%, rgba(11,9,9,.7) 86%, rgba(11,9,9,0) 100%),
+    radial-gradient(ellipse 70% 55% at 50% 45%, rgba(156,0,0,.32), rgba(156,0,0,0) 70%); }
+/* live photos (Shows band + Instagram strip): vines show through the dark areas, edges fade */
+.film, .strip { background: transparent; }
+.film video, .film__pane, .strip__track img { mix-blend-mode: lighten; }
+.film video, .film__pane {
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, rgba(0,0,0,.5) 18%, #000 38%, #000 60%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0, rgba(0,0,0,.5) 18%, #000 38%, #000 60%, transparent 100%); }
+.film::after { background: none; }
+.strip__track img {
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 18%, #000 78%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0, #000 18%, #000 78%, transparent 100%); }
+/* booking photo fades in and out at its edges */
+.book__bg, .book::before {
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 18%, #000 82%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0, #000 18%, #000 82%, transparent 100%); }
+.book::before { background: linear-gradient(90deg, rgba(11,9,9,.92) 0%, rgba(11,9,9,.6) 55%, rgba(11,9,9,.25) 100%); }
+.foot { border-top-color: transparent; }
