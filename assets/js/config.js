@@ -52,8 +52,9 @@ window.SITE = {
       lineup: ["Spirits and Sirens", "Decaystate", "Seagull Hazard"],
       ages: "All ages",
       flyer: "assets/img/flyer-2026-12-18.jpg",
-      // Metro Presents (TicketWeb). If Metro gives us our own link, swap it in here.
-      tickets: "https://www.ticketweb.com/event/long-rest-icon-events-dada-gastropub-tickets/14313664",
+      // Our own TicketWeb listing for this show (from the promoter, Nov 3), so sales through
+      // it count as ours. The main Metro Presents page is .../long-rest-icon-events-dada-gastropub-tickets/14313664
+      tickets: "https://www.ticketweb.com/event/decaystate-icon-events-dada-gastropub-tickets/14416074?pl=fourwinds",
       promoCode: ""   // e.g. "DECAYSTATE" if Metro sets one up for us
     },
     { date: "2026-10-09", venue: "The Park", city: "Rapid City, SD",
