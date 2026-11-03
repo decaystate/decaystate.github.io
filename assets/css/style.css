@@ -466,9 +466,9 @@ input:focus, textarea:focus, select:focus { outline: none; border-color: var(--s
 :root { --veil: rgba(11, 9, 9, .4); }   /* how far the vines sit back: higher = dimmer */
 /* the vines scroll with the page: one tall image that loops seamlessly down the whole site */
 body { background: transparent; }
-html { background: linear-gradient(var(--veil), var(--veil)), url(../img/vines-desktop.jpg?v=2) top center / 100% auto repeat-y, var(--void); }
+html { background: linear-gradient(var(--veil), var(--veil)), url(../img/vines-desktop.jpg?v=3) top center / 100% auto repeat-y, var(--void); }
 @media (max-aspect-ratio: 4/5) {
-  html { background: linear-gradient(var(--veil), var(--veil)), url(../img/vines-phone.jpg?v=2) top center / 100% auto repeat-y, var(--void); }
+  html { background: linear-gradient(var(--veil), var(--veil)), url(../img/vines-phone.jpg?v=3) top center / 100% auto repeat-y, var(--void); }
 }
 /* no section panels or dividers */
 .sec--ash, .signup, .strip__more { background: transparent; }
