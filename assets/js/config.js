@@ -143,5 +143,13 @@ window.SITE = {
     venmo: "",   // no band Venmo yet
     cashapp: ""
   },
-  shipping: null
+  shipping: null,
+
+  /* Free local drop-off. With merch on Bandcamp, the cart is only for Sioux Falls drop-offs
+     (and show pickups): orders are emailed to the band, and the band replies with a PayPal
+     request. Set to null to turn it off. */
+  localDropoff: {
+    title: "In Sioux Falls?",
+    blurb: "We’ll drop it off for free. Pick your size here and send the order to us; we’ll reply with a PayPal request and deliver once it’s paid."
+  }
 };

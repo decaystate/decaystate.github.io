@@ -365,7 +365,7 @@
     </fieldset>`;
 
   // Items sold on Bandcamp: show the details here, pick size/design and pay on Bandcamp
-  const buyBlock = (it, includes) => {
+  const buyBlock = (it, includes, pickers) => {
     const notes = it.bundle ? (it.includes || []).map(noteFor).filter(Boolean) : [it.sizeNote].filter(Boolean);
     const pick = it.bundle || it.sizes?.length ? "Pick your size on Bandcamp." : it.designs?.length ? "Pick your design on Bandcamp." : "";
     return `<div class="pd__body">
@@ -380,6 +380,15 @@
             ${it.bandcampPair ? ext(it.bandcampPair, `Buy 2-pack · ${money(it.pairPrice)}`, "btn btn--ghost", "merch-bandcamp-" + it.id + "-2pack") : ""}
           </div>
           <p class="item__note">${pick ? pick + " " : ""}Ships to the US only.${S.merchPerk ? " " + esc(S.merchPerk) + "." : ""}</p>
+          ${S.localDropoff ? `<form class="pd__local" id="pdForm" novalidate>
+            <p class="tele">${esc(S.localDropoff.title)}</p>
+            <p class="item__note">${esc(S.localDropoff.blurb)}</p>
+            ${pickers}
+            <label class="field" for="pdQty"><span>Quantity</span>
+              <select id="pdQty">${[1, 2, 3, 4, 5, 6].map((n) => `<option>${n}</option>`).join("")}</select></label>
+            <p class="pd__err" id="pdErr" hidden></p>
+            <button class="btn btn--ghost" type="submit">Add for local drop-off</button>
+          </form>` : ""}
         </div>`;
   };
 
@@ -401,7 +410,7 @@
           <div class="pd__img ${it.bundle ? "pd__img--wide" : ""}"><img id="pdMain" src="${esc(shots[0].src)}" alt="${esc(it.name)}"></div>
           ${thumbs}
         </div>
-        ${it.bandcamp ? buyBlock(it, includes) : `<form class="pd__body" id="pdForm" novalidate>
+        ${it.bandcamp ? buyBlock(it, includes, pickers) : `<form class="pd__body" id="pdForm" novalidate>
           <p class="tele">${it.bundle ? "Bundle" : "Merch"}</p>
           <h2 id="modalTitle">${esc(it.name)}</h2>
           <p class="pd__price">${it.pairPrice ? esc(it.note) : money(it.price)}</p>
@@ -501,8 +510,10 @@
   scrim.addEventListener("click", closeCart);
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") { if (!modal.hidden) closeModal(); else closeCart(); } });
 
+  const bcMode = items.every((i) => i.bandcamp);
   function renderCart() {
     $("#cartCount").textContent = count();
+    if (bcMode) $("#cartOpen").style.display = cart.length ? "" : "none";
     const body = $("#cartBody"), foot = $("#cartFoot");
     if (!cart.length) {
       body.innerHTML = `<div class="cart-empty"><p>Your cart is empty.</p><a class="tlink" href="#merch" data-closecart>Browse merch</a></div>`;
@@ -536,7 +547,6 @@
     if (e.target.closest("[data-closecart]")) closeCart();
   });
   renderCart();
-  if (items.every((i) => i.bandcamp) && !cart.length) $("#cartOpen").style.display = "none";
 
   /* ---------- checkout ---------- */
   const draftKey = "decaystate-checkout";
@@ -553,17 +563,17 @@
           <label class="field" for="coEmail"><span>Email</span><input id="coEmail" type="email" autocomplete="email" required value="${esc(d.email)}"></label>
           <fieldset class="field full"><legend>How do you want it?</legend>
             <div class="radios">
-              <label><input type="radio" name="coHow" value="ship" ${d.how !== "pickup" ? "checked" : ""}> Ship it to me</label>
+              <label><input type="radio" name="coHow" value="ship" ${d.how !== "pickup" ? "checked" : ""}> ${bcMode ? "Free drop-off in Sioux Falls" : "Ship it to me"}</label>
               <label><input type="radio" name="coHow" value="pickup" ${d.how === "pickup" ? "checked" : ""}> Pick up at a show</label>
             </div>
           </fieldset>
-          <label class="field full" for="coAddr" id="addrWrap"><span>Shipping address</span><textarea id="coAddr" autocomplete="street-address" rows="3">${esc(d.addr)}</textarea></label>
+          <label class="field full" for="coAddr" id="addrWrap"><span>${bcMode ? "Drop-off address (Sioux Falls area)" : "Shipping address"}</span><textarea id="coAddr" autocomplete="street-address" rows="3">${esc(d.addr)}</textarea></label>
           <label class="field full" for="coNotes"><span>Notes (optional)</span><input id="coNotes" type="text" value="${esc(d.notes)}"></label>
         </div>
         <p class="pd__err" id="coErr" hidden></p>
         <div class="sum">
           <div><span>Items</span><span>${count()}</span></div>
-          <div class="tot"><span>Total</span><span>${money(subtotal() + (S.shipping || 0))}${S.shipping == null ? " + shipping" : ""}</span></div>
+          <div class="tot"><span>Total</span><span>${bcMode ? money(subtotal()) : money(subtotal() + (S.shipping || 0)) + (S.shipping == null ? " + shipping" : "")}</span></div>
         </div>
         <button class="btn" type="submit">Review and send order</button>
       </form>`);
@@ -575,7 +585,7 @@
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const v = vals(), err = $("#coErr");
-      const problem = !v.name ? "Add your name." : !/^\S+@\S+\.\S+$/.test(v.email) ? "Add an email we can reply to." : v.how === "ship" && v.addr.length < 8 ? "Add a shipping address, or choose pick up at a show." : "";
+      const problem = !v.name ? "Add your name." : !/^\S+@\S+\.\S+$/.test(v.email) ? "Add an email we can reply to." : v.how === "ship" && v.addr.length < 8 ? (bcMode ? "Add your drop-off address, or choose pick up at a show." : "Add a shipping address, or choose pick up at a show.") : "";
       if (problem) { err.textContent = problem; err.hidden = false; return; }
       showSend(v);
     });
@@ -583,7 +593,7 @@
 
   function showSend(v) {
     const ref = "DS-" + Math.random().toString(36).slice(2, 6).toUpperCase();
-    const ship = v.how === "ship" && S.shipping != null ? S.shipping : 0;
+    const ship = !bcMode && v.how === "ship" && S.shipping != null ? S.shipping : 0;
     const total = subtotal() + ship;
     const lines = cart.map((l) => { const it = byId[l.id]; return `${l.qty} × ${it.name}${l.opts.length ? " (" + l.opts.join(", ") + ")" : ""} — ${money(lineTotal(l))}`; });
     const text = [
@@ -591,10 +601,10 @@
       ...lines, "",
       pairSavings() ? `2-for deal: −${money(pairSavings())}` : "",
       `Subtotal: ${money(subtotal())}`,
-      v.how === "ship" ? `Shipping: ${S.shipping == null ? "please confirm" : money(S.shipping)}` : "Pick up at a show",
-      `Total: ${money(total)}${v.how === "ship" && S.shipping == null ? " + shipping" : ""}`, "",
+      bcMode ? (v.how === "ship" ? "Free drop-off in Sioux Falls" : "Pick up at a show") : v.how === "ship" ? `Shipping: ${S.shipping == null ? "please confirm" : money(S.shipping)}` : "Pick up at a show",
+      `Total: ${money(total)}${!bcMode && v.how === "ship" && S.shipping == null ? " + shipping" : ""}`, "",
       `Name: ${v.name}`, `Email: ${v.email}`,
-      v.how === "ship" ? `Ship to:\n${v.addr}` : "",
+      v.how === "ship" ? `${bcMode ? "Drop off at" : "Ship to"}:\n${v.addr}` : "",
       v.notes ? `Notes: ${v.notes}` : "",
       S.merchPerk ? `\n(${S.merchPerk})` : ""
     ].filter((x) => x !== "").join("\n");
@@ -606,7 +616,9 @@
       S.payments.venmo && ext(`https://venmo.com/${encodeURIComponent(S.payments.venmo.replace(/^@/, ""))}?txn=pay&amount=${amt}&note=${encodeURIComponent("DECAYSTATE " + ref)}`, "Pay with Venmo", "btn"),
       S.payments.cashapp && ext(`https://cash.app/$${encodeURIComponent(S.payments.cashapp.replace(/^\$/, ""))}/${amt}`, "Pay with Cash App", "btn btn--ghost")
     ].filter(Boolean).join("");
-    const payNote = v.how === "ship" && S.shipping == null
+    const payNote = bcMode
+      ? `We’ll reply with a PayPal request for ${money(total)} from the band account${v.how === "ship" ? ", then drop it off once it’s paid" : ""}.`
+      : v.how === "ship" && S.shipping == null
       ? "We’ll reply with the shipping cost and payment details."
       : pay ? `Pay ${money(total)} and put <b>${ref}</b> in the note.` : "We’ll reply with payment details.";
 
@@ -618,7 +630,7 @@
           <div><div><p>Email this order to <b>${esc(S.email)}</b>. Pick how you email, and it opens with everything filled in. If neither works, copy the order and email it yourself.</p>
             <div class="btnrow"><a class="btn" href="${esc(mailto)}" id="mailOrder" data-track="merch-order-sent">Email app</a><a class="btn btn--ghost" href="${esc(gmail)}" target="_blank" rel="noopener" data-track="merch-order-gmail">Gmail</a><button class="btn btn--ghost" type="button" id="copyOrder">Copy order</button></div>
             <p class="muted" id="mailHint" style="margin-top:12px" hidden>No email app opened? Use Gmail, or copy the order and send it to ${esc(S.email)}.</p></div></div>
-          <div><div><p>${payNote}</p>${v.how === "ship" && S.shipping == null ? "" : pay ? `<div class="btnrow">${pay}</div>` : ""}</div></div>
+          <div><div><p>${payNote}</p>${bcMode || (v.how === "ship" && S.shipping == null) ? "" : pay ? `<div class="btnrow">${pay}</div>` : ""}</div></div>
           <div><div><p>Your order is confirmed once we reply. Questions? Same email.</p></div></div>
         </div>
         <pre class="order" id="orderText">${esc(text)}</pre>

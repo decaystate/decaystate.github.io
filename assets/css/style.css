@@ -505,3 +505,6 @@ html { background: linear-gradient(var(--veil), var(--veil)), url(../img/vines-d
   background: linear-gradient(180deg, transparent 0, var(--void) 110px, var(--void) calc(100% - 110px), transparent 100%); }
 .book::before { background: linear-gradient(90deg, rgba(11,9,9,.92) 0%, rgba(11,9,9,.6) 55%, rgba(11,9,9,.25) 100%); }
 .foot { border-top-color: transparent; }
+
+/* Free Sioux Falls drop-off, under the Bandcamp buttons */
+.pd__local { display: grid; gap: 14px; margin-top: 6px; padding-top: 18px; border-top: 1px solid rgba(236, 229, 219, .14); }
