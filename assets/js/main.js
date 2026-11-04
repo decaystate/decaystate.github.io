@@ -474,11 +474,12 @@
         if (!v) { $("#pdErr").textContent = "Pick a size first."; $("#pdErr").hidden = false; return; }
         opts.push(it.bundle ? `${it.includes[k]}: ${v}` : `Size ${v}`);
       }
+      if (it.bandcamp) track("merch-local-add-" + it.id, "Local drop-off: " + it.name);
       addToCart(it.id, opts, +$("#pdQty").value, lineImg);
       closeModal(); openCart();
     });
   };
-  document.addEventListener("click", (e) => { const b = e.target.closest("[data-item]"); if (b) openProduct(byId[b.dataset.item]); });
+  document.addEventListener("click", (e) => { const b = e.target.closest("[data-item]"); if (b) { track("merch-view-" + b.dataset.item, "Viewed " + byId[b.dataset.item].name); openProduct(byId[b.dataset.item]); } });
 
   /* ---------- cart ---------- */
   const KEY = "decaystate-cart";
