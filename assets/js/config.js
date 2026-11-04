@@ -94,7 +94,9 @@ window.SITE = {
 
   /* ---------------- MERCH ----------------
      price: in dollars.
-     pairPrice: optional deal for 2 (e.g. stickers 1 for $3 / 2 for $5).
+     bandcamp: the item's Bandcamp page; when every item has one, the site sends buyers there
+       and hides the cart (bandcampPair: a 2-pack listing, shown as a second button).
+     pairPrice: optional deal for 2 (e.g. magnets 1 for $5 / 2 for $8).
      sizes: leave [] for one-size items.
      includes: for bundles, which shirts need a size picked.
      img: the card photo (square; bundles 16:10). It's also the first photo in the gallery.
@@ -103,30 +105,29 @@ window.SITE = {
      have its own photo, shown when it's picked. The 2-for deal counts
      across designs (one of each = the pair price).                    */
   merch: [
-    { id: "logo-tee", name: "Logo T-Shirt", price: 25, img: "assets/merch/logo-tee.jpg",
+    { id: "logo-tee", bandcamp: "https://decaystate.bandcamp.com/merch/logo-t-shirt", name: "Logo T-Shirt", price: 25, img: "assets/merch/logo-tee.jpg",
       gallery: ["assets/merch/logo-tee-detail-print.jpg", "assets/merch/logo-tee-detail-sleeve.jpg", "assets/merch/logo-tee-2.jpg", "assets/merch/logo-tee-3.jpg"],
       sizes: ["S", "M", "L", "XL", "2XL", "3XL"] },
-    { id: "vintage-red-tee", name: "Acid Wash T-Shirt", price: 30, img: "assets/merch/vintage-red-tee.jpg",
+    { id: "vintage-red-tee", bandcamp: "https://decaystate.bandcamp.com/merch/acid-wash-t-shirt", name: "Acid Wash T-Shirt", price: 30, img: "assets/merch/vintage-red-tee.jpg",
       gallery: ["assets/merch/vintage-red-tee-2.jpg", "assets/merch/vintage-red-tee-detail-1.jpg",
         "assets/merch/vintage-red-tee-detail-2.jpg", "assets/merch/vintage-red-tee-detail-3.jpg", "assets/merch/vintage-red-tee-3.jpg", "assets/merch/vintage-red-tee-tag.jpg"],
       sizes: ["S", "M", "L", "XL", "2XL", "3XL"],
       sizeNote: "Sizes S, 2XL and 3XL are printed on Comfort Colors tees; M, L and XL are a different shirt." },
-    { id: "emblem-hat", name: "Emblem Dad Hat", price: 30, img: "assets/merch/emblem-hat.jpg",
+    { id: "emblem-hat", bandcamp: "https://decaystate.bandcamp.com/merch/emblem-dad-hat", name: "Emblem Dad Hat", price: 30, img: "assets/merch/emblem-hat.jpg",
       gallery: ["assets/merch/emblem-hat-3q.jpg", "assets/merch/emblem-hat-back.jpg", "assets/merch/emblem-hat-detail.jpg", "assets/merch/merch-flatlay.jpg"], sizes: [] },
-    { id: "magnet", name: "Magnet", price: 5, pairPrice: 8, img: "assets/merch/magnet.jpg", sizes: [],
+    { id: "magnet", bandcamp: "https://decaystate.bandcamp.com/merch/magnet", bandcampPair: "https://decaystate.bandcamp.com/merch/magnet-2-pack", name: "Magnet", price: 5, pairPrice: 8, img: "assets/merch/magnet.jpg", sizes: [],
       designs: [{ name: "Red emblem", img: "assets/merch/magnet.jpg" }, { name: "Black logo", img: "assets/merch/magnet-black-logo.jpg" }],
       gallery: ["assets/merch/magnet-both.jpg", "assets/merch/merch-flatlay-2.jpg"],
       note: "1 for $5 · 2 for $8" },
-    { id: "sticker", name: "Sticker", price: 3, pairPrice: 5, img: "assets/merch/sticker.jpg", sizes: [],
+    { id: "sticker", bandcamp: "https://decaystate.bandcamp.com/merch/sticker", name: "Sticker", price: 3, img: "assets/merch/sticker.jpg", sizes: [],
       designs: [{ name: "Holographic emblem", img: "assets/merch/sticker.jpg" }, { name: "White logo", img: "assets/merch/sticker-white-logo.jpg" }],
-      gallery: ["assets/merch/sticker-both.jpg", "assets/merch/merch-flatlay-2.jpg"],
-      note: "1 for $3 · 2 for $5" },
+      gallery: ["assets/merch/sticker-both.jpg", "assets/merch/merch-flatlay-2.jpg"] },
 
-    { id: "bundle-logo-hat", name: "Logo Shirt + Dad Hat", price: 50, bundle: true,
+    { id: "bundle-logo-hat", bandcamp: "https://decaystate.bandcamp.com/merch/logo-shirt-dad-hat", name: "Logo Shirt + Dad Hat", price: 50, bundle: true,
       img: "assets/merch/bundle-logo-hat.jpg", gallery: ["assets/merch/bundle-all-2.jpg"], includes: ["Logo T-Shirt"] },
-    { id: "bundle-red-hat", name: "Acid Wash Shirt + Dad Hat", price: 55, bundle: true,
+    { id: "bundle-red-hat", bandcamp: "https://decaystate.bandcamp.com/merch/acid-wash-shirt-dad-hat", name: "Acid Wash Shirt + Dad Hat", price: 55, bundle: true,
       img: "assets/merch/bundle-red-hat.jpg", gallery: ["assets/merch/bundle-all-3.jpg"], includes: ["Acid Wash T-Shirt"] },
-    { id: "bundle-all", name: "Both Shirts + Dad Hat", price: 75, bundle: true,
+    { id: "bundle-all", bandcamp: "https://decaystate.bandcamp.com/merch/both-shirts-dad-hat", name: "Both Shirts + Dad Hat", price: 75, bundle: true,
       img: "assets/merch/bundle-all.jpg", gallery: ["assets/merch/bundle-all-2.jpg", "assets/merch/bundle-all-3.jpg"],
       includes: ["Logo T-Shirt", "Acid Wash T-Shirt"],
       note: "Includes a high five from each band member" }

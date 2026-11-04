@@ -364,6 +364,25 @@
       <div class="sizes sizes--wide">${it.designs.map((d, k) => `<label><input type="radio" name="design" value="${k}"><span>${esc(d.name)}</span></label>`).join("")}</div>
     </fieldset>`;
 
+  // Items sold on Bandcamp: show the details here, pick size/design and pay on Bandcamp
+  const buyBlock = (it, includes) => {
+    const notes = it.bundle ? (it.includes || []).map(noteFor).filter(Boolean) : [it.sizeNote].filter(Boolean);
+    const pick = it.bundle || it.sizes?.length ? "Pick your size on Bandcamp." : it.designs?.length ? "Pick your design on Bandcamp." : "";
+    return `<div class="pd__body">
+          <p class="tele">${it.bundle ? "Bundle" : "Merch"}</p>
+          <h2 id="modalTitle">${esc(it.name)}</h2>
+          <p class="pd__price">${it.pairPrice ? esc(it.note) : money(it.price)}</p>
+          ${includes}
+          ${it.note && !it.pairPrice && it.bundle ? `<p class="item__note">${esc(it.note)}</p>` : ""}
+          ${notes.map((n) => `<p class="item__note">${esc(n)}</p>`).join("")}
+          <div class="btnrow">
+            ${ext(it.bandcamp, it.pairPrice ? `Buy 1 · ${money(it.price)}` : "Buy on Bandcamp", "btn", "merch-bandcamp-" + it.id)}
+            ${it.bandcampPair ? ext(it.bandcampPair, `Buy 2-pack · ${money(it.pairPrice)}`, "btn btn--ghost", "merch-bandcamp-" + it.id + "-2pack") : ""}
+          </div>
+          <p class="item__note">${pick ? pick + " " : ""}Ships to the US only.${S.merchPerk ? " " + esc(S.merchPerk) + "." : ""}</p>
+        </div>`;
+  };
+
   const openProduct = (it) => {
     const pickers = it.bundle
       ? (it.includes || []).map((n, k) => sizePicker("size" + k, n + " size", sizesFor(n), noteFor(n))).join("")
@@ -382,7 +401,7 @@
           <div class="pd__img ${it.bundle ? "pd__img--wide" : ""}"><img id="pdMain" src="${esc(shots[0].src)}" alt="${esc(it.name)}"></div>
           ${thumbs}
         </div>
-        <form class="pd__body" id="pdForm" novalidate>
+        ${it.bandcamp ? buyBlock(it, includes) : `<form class="pd__body" id="pdForm" novalidate>
           <p class="tele">${it.bundle ? "Bundle" : "Merch"}</p>
           <h2 id="modalTitle">${esc(it.name)}</h2>
           <p class="pd__price">${it.pairPrice ? esc(it.note) : money(it.price)}</p>
@@ -394,7 +413,7 @@
           <p class="pd__err" id="pdErr" hidden>${it.designs?.length ? "Pick a design first." : "Pick a size first."}</p>
           <button class="btn" type="submit">Add to cart</button>
           ${S.merchPerk ? `<p class="item__note">${esc(S.merchPerk)}</p>` : ""}
-        </form>
+        </form>`}
       </div>`);
 
     // gallery: thumbnails, arrow keys, swipe
@@ -427,10 +446,10 @@
     document.querySelectorAll('input[name="design"]').forEach((r) => r.addEventListener("change", () => {
       const k = shots.findIndex((s) => s.src === it.designs[+r.value].img);
       if (k >= 0) show(k);
-      $("#pdErr").hidden = true;
+      if ($("#pdErr")) $("#pdErr").hidden = true;
     }));
 
-    $("#pdForm").addEventListener("submit", (e) => {
+    $("#pdForm")?.addEventListener("submit", (e) => {
       e.preventDefault();
       const opts = [];
       let lineImg;
@@ -517,6 +536,7 @@
     if (e.target.closest("[data-closecart]")) closeCart();
   });
   renderCart();
+  if (items.every((i) => i.bandcamp) && !cart.length) $("#cartOpen").style.display = "none";
 
   /* ---------- checkout ---------- */
   const draftKey = "decaystate-checkout";
