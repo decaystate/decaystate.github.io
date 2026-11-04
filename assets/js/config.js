@@ -150,6 +150,6 @@ window.SITE = {
      request. Set to null to turn it off. */
   localDropoff: {
     title: "In Sioux Falls?",
-    blurb: "We’ll drop it off for free. Pick your size here and send the order to us; we’ll reply with a PayPal request and deliver once it’s paid."
+    blurb: "We’ll drop it off for free. Add it here and send us the order; we’ll reply with a PayPal request and deliver once it’s paid."
   }
 };
