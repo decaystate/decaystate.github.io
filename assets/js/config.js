@@ -145,11 +145,11 @@ window.SITE = {
   },
   shipping: null,
 
-  /* Free local drop-off. With merch on Bandcamp, the cart is only for Sioux Falls drop-offs
+  /* Free local drop-off (Sioux Falls area). With merch on Bandcamp, the cart is only for local drop-offs
      (and show pickups): orders are emailed to the band, and the band replies with a PayPal
      request. Set to null to turn it off. */
   localDropoff: {
-    title: "In Sioux Falls?",
+    title: "Local?",
     blurb: "We’ll drop it off for free. Add it here and send us the order; we’ll reply with a PayPal request and deliver once it’s paid."
   }
 };

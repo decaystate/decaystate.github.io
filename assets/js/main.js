@@ -563,11 +563,11 @@
           <label class="field" for="coEmail"><span>Email</span><input id="coEmail" type="email" autocomplete="email" required value="${esc(d.email)}"></label>
           <fieldset class="field full"><legend>How do you want it?</legend>
             <div class="radios">
-              <label><input type="radio" name="coHow" value="ship" ${d.how !== "pickup" ? "checked" : ""}> ${bcMode ? "Free drop-off in Sioux Falls" : "Ship it to me"}</label>
+              <label><input type="radio" name="coHow" value="ship" ${d.how !== "pickup" ? "checked" : ""}> ${bcMode ? "Free local drop-off" : "Ship it to me"}</label>
               <label><input type="radio" name="coHow" value="pickup" ${d.how === "pickup" ? "checked" : ""}> Pick up at a show</label>
             </div>
           </fieldset>
-          <label class="field full" for="coAddr" id="addrWrap"><span>${bcMode ? "Drop-off address (Sioux Falls area)" : "Shipping address"}</span><textarea id="coAddr" autocomplete="street-address" rows="3">${esc(d.addr)}</textarea></label>
+          <label class="field full" for="coAddr" id="addrWrap"><span>${bcMode ? "Drop-off address (local only)" : "Shipping address"}</span><textarea id="coAddr" autocomplete="street-address" rows="3">${esc(d.addr)}</textarea></label>
           <label class="field full" for="coNotes"><span>Notes (optional)</span><input id="coNotes" type="text" value="${esc(d.notes)}"></label>
         </div>
         <p class="pd__err" id="coErr" hidden></p>
@@ -601,7 +601,7 @@
       ...lines, "",
       pairSavings() ? `2-for deal: −${money(pairSavings())}` : "",
       `Subtotal: ${money(subtotal())}`,
-      bcMode ? (v.how === "ship" ? "Free drop-off in Sioux Falls" : "Pick up at a show") : v.how === "ship" ? `Shipping: ${S.shipping == null ? "please confirm" : money(S.shipping)}` : "Pick up at a show",
+      bcMode ? (v.how === "ship" ? "Free local drop-off" : "Pick up at a show") : v.how === "ship" ? `Shipping: ${S.shipping == null ? "please confirm" : money(S.shipping)}` : "Pick up at a show",
       `Total: ${money(total)}${!bcMode && v.how === "ship" && S.shipping == null ? " + shipping" : ""}`, "",
       `Name: ${v.name}`, `Email: ${v.email}`,
       v.how === "ship" ? `${bcMode ? "Drop off at" : "Ship to"}:\n${v.addr}` : "",
